@@ -114,12 +114,10 @@ const CalculateTimeLeft = (props) => {
 
     return(
         <div>
-            <div className="row">
-                <div className="allButtonsTimeOptions">
-                    <button className="btn btn-danger buttonTimeOptions" onClick={() => workTime()}>Work</button>
-                    <button className="btn btn-danger buttonTimeOptions" onClick={() => breakTime()}>Short break</button>
-                    <button className="btn btn-danger buttonTimeOptions" onClick={() => longBreakTime()}>Long break</button>
-                </div>
+            <div className="allButtonsTimeOptions">
+                <button className="btn btn-danger buttonTimeOptions" onClick={() => workTime()}>Work</button>
+                <button className="btn btn-danger buttonTimeOptions" onClick={() => breakTime()}>Short break</button>
+                <button className="btn btn-danger buttonTimeOptions" onClick={() => longBreakTime()}>Long break</button>
             </div>
             <div className="timerText">{timeText}</div><br />
             <button className={cssClass} onClick={() => toggleActive()}>{buttonName}</button>

@@ -32,13 +32,17 @@ const Timer = () =>{
 
     return(
         <div>
-            <div className="timer">
-                <div className="timerWithButtons">
+            <div className="timer"> 
+                <div className="timerWithButtons effect8">
                     <form onSubmit={handleSubmit}>
+                        <div className="row">
+                            <div className="col-12">
+                                <button type="button" className="iconButton floatRight" data-toggle="modal" data-target="#exampleModal" aria-label="settings">
+                                    <i className="fa fa-cog"></i>
+                                </button>                            
+                            </div>
+                        </div>
 
-                        <button type="button" className="iconButton floatRight" data-toggle="modal" data-target="#exampleModal">
-                            <i className="fa fa-cog"></i>
-                        </button>
 
                         <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
