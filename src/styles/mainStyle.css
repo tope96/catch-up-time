@@ -1,0 +1,17 @@
+body{
+    background-color: #FF6347;
+}
+
+.iconButton{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color: white
+}
+
+.floatRight{
+    float: right;
+}

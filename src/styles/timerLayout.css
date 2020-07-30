@@ -1,0 +1,34 @@
+.timerText{
+    font-size: 60px;
+    color: white;
+}
+
+.timer{
+    margin-top: 10rem;
+    text-align: center;
+}
+
+.actionButton{
+    margin: 1rem;
+}
+
+.allButtonsTimeOptions{
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.buttonTimeOptions{
+    margin: 1rem;
+}
+
+.timerWithButtons{
+    max-width: 480px;
+    margin: auto;
+    background-color: #fd725ab2;
+    border-radius: 1rem;
+    padding-bottom: 2rem;
+}
