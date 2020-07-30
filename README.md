@@ -20,3 +20,5 @@ If you are determined to take a longer break, choose the "long break" option.
 
 If you are not satisfied with the time intervals declared in the application, you can change them by pressing the settings icon.
 There you can change the time of individual phases by entering the time in seconds (the time will be immediately converted into minutes to make it easier for you).
+
+You can install Pomodoro Timer as PWA app!
