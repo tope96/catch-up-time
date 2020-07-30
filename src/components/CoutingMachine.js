@@ -22,7 +22,7 @@ const CalculateTimeLeft = (props) => {
             setButtonName("Stop");
         }
 
-        document.title = "React App"
+        document.title = "Pomodoro Timer"
     },[isActive])
 
     function setTimerTo(seconds){
@@ -74,7 +74,7 @@ const CalculateTimeLeft = (props) => {
         }else if(currentMode === "longBreak"){
             longBreakTime();
         }
-        document.title = "React App"
+        document.title = "Pomodoro Timer"
     },[currentMode, workTime, breakTime, longBreakTime])
 
     useEffect(() => {
