@@ -2,6 +2,9 @@ import React, { useState} from 'react';
 import CountingMachine from './CoutingMachine';
 
 const Timer = () =>{
+    const oriWorkTime = 1500;
+    const oriBreakTime = 300;
+    const oriLongBreakTime = 900;
     const [workTime, setWorkTime] = useState(1500);
     const [breakTime, setBreakTime] = useState(300);
     const [longBreakTime, setLongBreakTime] = useState(900);
@@ -28,6 +31,12 @@ const Timer = () =>{
         }
 
         return minutes + ":" + secondsMinutes;
+    }
+
+    function resetValues(){
+        setWorkTime(oriWorkTime);
+        setBreakTime(oriBreakTime);
+        setLongBreakTime(oriLongBreakTime);
     }
 
     return(
@@ -92,6 +101,7 @@ const Timer = () =>{
                                         </div>
                                     </div>
                                     <div className="modal-footer">
+                                        <button type="submit" className='btn btn-light iconButton' onClick={() => resetValues()}>Reset</button>
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" className="btn btn-primary">Save changes</button>
                                     </div>
