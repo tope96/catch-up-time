@@ -1,5 +1,5 @@
 const CACHE_NAME = "pomodoro";
-const urlsToCache = ['index.html', 'offline.html', '/dist/build/static/js/bundle.min.js'];
+const urlsToCache = ['index.html', 'offline.html', 'static/js/bundle.min.js'];
 
 const self = this;
 
@@ -21,7 +21,7 @@ self.addEventListener('fetch', (event) => {
         caches.match(event.request)
             .then(() => {
                 return fetch(event.request)
-                    .catch(() => caches.match('/dist/build/static/js/bundle.min.js'))
+                    .catch(() => caches.match('static/js/bundle.min.js'))
             })
     )
 });
