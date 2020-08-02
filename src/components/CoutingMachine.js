@@ -93,7 +93,7 @@ const CalculateTimeLeft = (props) => {
 
     useEffect(() => {
         let interval = null;
-        
+         
         if (isActive) {
             if (seconds !== -1) {
                 interval = setInterval(() => {
@@ -102,7 +102,7 @@ const CalculateTimeLeft = (props) => {
                 return () => clearInterval(interval);
             }else{
                 toggleActive();
-
+ 
                 playSFX('ding');
                 var title = ['Time is up!', currentMode==='work' ? 'Take a break!' : 'Do some work!'].join(' ');
                 addNotification({
