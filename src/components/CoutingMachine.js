@@ -3,22 +3,26 @@ import '../styles/timerLayout.css';
 import addNotification from 'react-push-notification';
 
 const CalculateTimeLeft = (props) => {
+    const buttonActive = "btn btn-danger actionButton";
+    const buttonInactive = "btn btn-outline-danger actionButton";
     const [secondsSetByUser, setsecondsSetByUser] = useState(props.maxTime);
     const [seconds, setSeconds] = useState(secondsSetByUser.work);
     const [isActive, setIsActive] = useState(false);
     const [buttonName, setButtonName] = useState("Start");
     const [timeText, setTimeText] = useState("25:00");
-    const [cssClass, setCssClass] = useState("btn btn-success actionButton")
+    const [actionButtonState, setActionButtonState] = useState("btn btn-success actionButton");
+    const [activeButton, setActiveButton] = useState({work: buttonActive, breake:buttonInactive, longBreak: buttonInactive });
     const [currentMode, setCurrentMode] = useState("work");
+    const [workIter, setWorkIter] = useState(1);
 
     const toggleActive = useCallback(()=>{
         setIsActive(!isActive);
 
         if(isActive){
-            setCssClass("btn btn-success actionButton");
+            setActionButtonState("btn btn-success actionButton");
             setButtonName("Start");
         }else{
-            setCssClass("btn btn-danger actionButton")
+            setActionButtonState("btn btn-danger actionButton")
             setButtonName("Stop");
         }
 
@@ -43,28 +47,31 @@ const CalculateTimeLeft = (props) => {
     }
     
     const workTime = useCallback(() => {
+        setActiveButton({work: buttonActive, breake:buttonInactive, longBreak: buttonInactive })
         setCurrentMode("work");
         setTimerTo(secondsSetByUser.work);
         setIsActive(false);
-        setCssClass("btn btn-success actionButton");
+        setActionButtonState("btn btn-success actionButton");
         setButtonName("Start");
-    },[secondsSetByUser.work]);
+    },[secondsSetByUser.work, buttonActive, buttonInactive]);
 
     const breakTime = useCallback(() => {
+        setActiveButton({work: buttonInactive, breake:buttonActive, longBreak: buttonInactive })
         setCurrentMode("break");
         setTimerTo(secondsSetByUser.break);
         setIsActive(false);
-        setCssClass("btn btn-success actionButton");
+        setActionButtonState("btn btn-success actionButton");
         setButtonName("Start");
-    },[secondsSetByUser.break]);
+    },[secondsSetByUser.break, buttonActive, buttonInactive]);
 
     const longBreakTime = useCallback(() => {
+        setActiveButton({work: buttonInactive, breake:buttonInactive, longBreak: buttonActive })
         setCurrentMode("longBreak");
         setTimerTo(secondsSetByUser.longBreak);
         setIsActive(false);
-        setCssClass("btn btn-success actionButton");
+        setActionButtonState("btn btn-success actionButton");
         setButtonName("Start");
-    }, [secondsSetByUser.longBreak]);
+    }, [secondsSetByUser.longBreak, buttonActive, buttonInactive]);
 
     const toggleReset = useCallback(() => {
         if(currentMode === "work"){
@@ -94,7 +101,7 @@ const CalculateTimeLeft = (props) => {
                 return () => clearInterval(interval);
             }else{
                 toggleActive();
-                document.title = "Times up!";
+
                 addNotification({
                     title: 'Time is up!',
                     subtitle: 'Pomodoro',
@@ -102,25 +109,33 @@ const CalculateTimeLeft = (props) => {
                     duration: 3000,
                     native: true
                 });
-                if(currentMode === "work"){
-                    breakTime();
-                }else if(currentMode === "break"){
+
+                if (currentMode === "work"){
+                    if(workIter === 4){
+                        longBreakTime();
+                        setWorkIter(1)
+                    } else {
+                        setWorkIter(workIter+1)
+                        console.log(workIter)
+                        breakTime();
+                    }
+                } else if (currentMode === "break"){
                     workTime();
                 }
             }
         }
-    }, [seconds, isActive, timeText, breakTime, currentMode, toggleActive, workTime]);
+    }, [seconds, isActive, timeText, breakTime, currentMode, toggleActive, workTime, longBreakTime, workIter]);
 
 
     return(
         <div>
             <div className="allButtonsTimeOptions">
-                <button className="btn btn-danger buttonTimeOptions" onClick={() => workTime()}>Work</button>
-                <button className="btn btn-danger buttonTimeOptions" onClick={() => breakTime()}>Short break</button>
-                <button className="btn btn-danger buttonTimeOptions" onClick={() => longBreakTime()}>Long break</button>
+                <button className={activeButton.work} onClick={() => {workTime()}}>Work</button>
+                <button className={activeButton.breake} onClick={() => {breakTime()}}>Short break</button>
+                <button className={activeButton.longBreak} onClick={() => {longBreakTime()}}>Long break</button>
             </div>
             <div className="timerText">{timeText}</div><br />
-            <button className={cssClass} onClick={() => toggleActive()}>{buttonName}</button>
+            <button className={actionButtonState} onClick={() => toggleActive()}>{buttonName}</button>
             <button className="btn btn-warning actionButton" onClick={() => toggleReset()}>Reset timer</button>
         </div>
     );
