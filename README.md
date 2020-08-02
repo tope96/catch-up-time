@@ -22,3 +22,7 @@ If you are not satisfied with the time intervals declared in the application, yo
 There you can change the time of individual phases by entering the time in seconds (the time will be immediately converted into minutes to make it easier for you).
 
 You can install Pomodoro Timer as PWA app!
+
+## Demo
+This project uses [Buddy](https://buddy.works/) for CD pipeline to deploy master branch on Google's cloud storage and is available here:\
+https://pomodoro-timer.guba.waw.pl/
