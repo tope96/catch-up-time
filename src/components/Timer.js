@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
 import CountingMachine from './CoutingMachine';
+import {getSound, toggleSound, playSFX} from './SoundFX';
 
 const Timer = () =>{
     const oriWorkTime = 1500;
@@ -14,6 +15,7 @@ const Timer = () =>{
     const [longBreakMinutes, setlongBreakMinutes] = useState(secondsToMinutes(900));
     const [maxTime, setMaxTime] = useState({work: workTime, break: breakTime, longBreak: longBreakTime});
     const [forceBreak, setForceBreak] = useState(true);
+    const [sound, setSound] = useState(true);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -36,6 +38,7 @@ const Timer = () =>{
     }
 
     function resetValues(){
+        playSFX('clickReset');
         setWorkTime(oriWorkTime);
         setBreakTime(oriBreakTime);
         setLongBreakTime(oriLongBreakTime);
@@ -49,7 +52,7 @@ const Timer = () =>{
                     <form onSubmit={handleSubmit}>
                         <div className="row">
                             <div className="col-12">
-                                <button type="button" className="iconButton floatRight" data-toggle="modal" data-target="#exampleModal" aria-label="settings">
+                                <button type="button" className="iconButton floatRight" data-toggle="modal" data-target="#exampleModal" aria-label="settings" onClick ={() => playSFX('clickSettings')}>
                                     <i className="fa fa-cog"></i>
                                 </button>                            
                             </div>
@@ -61,7 +64,7 @@ const Timer = () =>{
                                 <div className="modal-content">
                                     <div className="modal-header">
                                         <h5 className="modal-title" id="exampleModalLabel">Set duration for phases</h5>
-                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick ={() => playSFX('clickSettings')}>
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
@@ -106,15 +109,23 @@ const Timer = () =>{
                                             <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Force long break</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
-                                                    <input type="checkbox" className="form-control" name="inputForceBreak" id="forceBreak" checked={forceBreak} onChange={e => {setForceBreak(!forceBreak)}} />
+                                                    <input type="checkbox" className="form-control" name="inputForceBreak" id="forceBreak" checked={forceBreak} onChange={e => {setForceBreak(!forceBreak); playSFX('clickSettings')}} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Sound</label>
+                                            <div className="col-sm-7">
+                                                <div className="input-group ">
+                                                    <input type="checkbox" className="form-control" name="inputForceBreak" id="forceBreak" checked={sound} onChange={e => {toggleSound(); setSound(getSound); playSFX('clickSettings'); }} />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="modal-footer">
                                         <button type="submit" className='btn btn-light iconButton' onClick={() => resetValues()}>Reset</button>
-                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" className="btn btn-primary">Save changes</button>
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => playSFX('clickSettings')}>Close</button>
+                                        <button type="submit" className="btn btn-primary" onClick={() => playSFX('clickSettings')}>Save changes</button>
                                     </div>
                                 </div>
                             </div>
