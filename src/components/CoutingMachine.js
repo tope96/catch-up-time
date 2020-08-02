@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/timerLayout.css';
 import addNotification from 'react-push-notification';
+import {playSFX} from './SoundFX.js';
 
 const CalculateTimeLeft = (props) => {
     const buttonActive = "btn btn-danger actionButton";
@@ -102,8 +103,10 @@ const CalculateTimeLeft = (props) => {
             }else{
                 toggleActive();
 
+                playSFX('ding');
+                var title = ['Time is up!', currentMode==='work' ? 'Take a break!' : 'Do some work!'].join(' ');
                 addNotification({
-                    title: 'Time is up!',
+                    title: title,
                     subtitle: 'Pomodoro',
                     theme: 'darkblue',
                     duration: 3000,
@@ -111,32 +114,32 @@ const CalculateTimeLeft = (props) => {
                 });
 
                 if (currentMode === "work"){
-                    if(workIter === 4){
+                    if(props.forceBreak && workIter >= 4){
                         longBreakTime();
-                        setWorkIter(1)
+                        setWorkIter(1);
                     } else {
-                        setWorkIter(workIter+1)
-                        console.log(workIter)
+                        setWorkIter(workIter+1);
+                        console.log(workIter);
                         breakTime();
                     }
-                } else if (currentMode === "break"){
+                } else if (currentMode === "break" || currentMode === "longBreak"){
                     workTime();
                 }
             }
         }
-    }, [seconds, isActive, timeText, breakTime, currentMode, toggleActive, workTime, longBreakTime, workIter]);
+    }, [seconds, isActive, timeText, breakTime, currentMode, toggleActive, workTime, longBreakTime, workIter, props.forceBreak]);
 
 
     return(
         <div>
             <div className="allButtonsTimeOptions">
-                <button className={activeButton.work} onClick={() => {workTime()}}>Work</button>
-                <button className={activeButton.breake} onClick={() => {breakTime()}}>Short break</button>
-                <button className={activeButton.longBreak} onClick={() => {longBreakTime()}}>Long break</button>
+                <button className={activeButton.work} onClick={() => {playSFX('clickSettings'); workTime()}}>Work</button>
+                <button className={activeButton.breake} onClick={() => {playSFX('clickSettings'); breakTime()}}>Short break</button>
+                <button className={activeButton.longBreak} onClick={() => {playSFX('clickSettings'); longBreakTime()}}>Long break</button>
             </div>
             <div className="timerText">{timeText}</div><br />
-            <button className={actionButtonState} onClick={() => toggleActive()}>{buttonName}</button>
-            <button className="btn btn-warning actionButton" onClick={() => toggleReset()}>Reset timer</button>
+            <button className={actionButtonState} onClick={() => {playSFX('clickStart'); toggleActive()}}>{buttonName}</button>
+            <button className="btn btn-warning actionButton" onClick={() => {playSFX('clickReset'); toggleReset()}}>Reset timer</button>
         </div>
     );
 };
