@@ -111,12 +111,12 @@ const CalculateTimeLeft = (props) => {
                 });
 
                 if (currentMode === "work"){
-                    if(workIter === 4){
+                    if(props.forceBreak && workIter >= 4){
                         longBreakTime();
-                        setWorkIter(1)
+                        setWorkIter(1);
                     } else {
-                        setWorkIter(workIter+1)
-                        console.log(workIter)
+                        setWorkIter(workIter+1);
+                        console.log(workIter);
                         breakTime();
                     }
                 } else if (currentMode === "break"){
@@ -124,7 +124,7 @@ const CalculateTimeLeft = (props) => {
                 }
             }
         }
-    }, [seconds, isActive, timeText, breakTime, currentMode, toggleActive, workTime, longBreakTime, workIter]);
+    }, [seconds, isActive, timeText, breakTime, currentMode, toggleActive, workTime, longBreakTime, workIter, props.forceBreak]);
 
 
     return(

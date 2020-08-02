@@ -5,6 +5,7 @@ const Timer = () =>{
     const oriWorkTime = 1500;
     const oriBreakTime = 300;
     const oriLongBreakTime = 900;
+    const oriForceBreak = true;
     const [workTime, setWorkTime] = useState(1500);
     const [breakTime, setBreakTime] = useState(300);
     const [longBreakTime, setLongBreakTime] = useState(900);
@@ -12,6 +13,7 @@ const Timer = () =>{
     const [breakMinutes, setBreakMinutes] = useState(secondsToMinutes(300));
     const [longBreakMinutes, setlongBreakMinutes] = useState(secondsToMinutes(900));
     const [maxTime, setMaxTime] = useState({work: workTime, break: breakTime, longBreak: longBreakTime});
+    const [forceBreak, setForceBreak] = useState(true);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -37,6 +39,7 @@ const Timer = () =>{
         setWorkTime(oriWorkTime);
         setBreakTime(oriBreakTime);
         setLongBreakTime(oriLongBreakTime);
+        setForceBreak(oriForceBreak);
     }
 
     return(
@@ -99,6 +102,14 @@ const Timer = () =>{
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Force long break</label>
+                                            <div className="col-sm-7">
+                                                <div className="input-group ">
+                                                    <input type="checkbox" className="form-control" name="inputForceBreak" id="forceBreak" checked={forceBreak} onChange={e => {setForceBreak(!forceBreak)}} />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="modal-footer">
                                         <button type="submit" className='btn btn-light iconButton' onClick={() => resetValues()}>Reset</button>
@@ -110,7 +121,7 @@ const Timer = () =>{
                         </div>
                     </form>
 
-                    <CountingMachine maxTime={maxTime} />
+                    <CountingMachine maxTime={maxTime} forceBreak={forceBreak}/>
                 </div>
             </div>
         </div>
