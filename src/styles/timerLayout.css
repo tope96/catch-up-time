@@ -133,3 +133,9 @@
       margin-left: auto;
   }
   }
+
+  @media screen and (max-width: 524px) {
+    .timer{
+      margin-top: 2rem;
+    }
+  }
