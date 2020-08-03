@@ -119,3 +119,17 @@
   .slider.round:before {
     border-radius: 50%;
   }
+
+  @media screen and (max-width: 320px) {
+    .actionButton{
+      margin: 0.1rem;
+    }
+
+    .container {
+      width: 100%;
+      padding-right: 2px; 
+      padding-left:2px;
+      margin-right: auto;
+      margin-left: auto;
+  }
+  }

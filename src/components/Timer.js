@@ -1,6 +1,8 @@
 import React, { useState} from 'react';
 import CountingMachine from './CoutingMachine';
 import {getSound, toggleSound, playSFX} from './SoundFX';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Timer = () =>{
     const oriWorkTime = 1500;
@@ -47,23 +49,24 @@ const Timer = () =>{
 
     return(
         <div>
+            <ToastContainer />
             <div className="timer"> 
                 <div className="timerWithButtons effect8">
                     <form onSubmit={handleSubmit}>
                         <div className="row">
                             <div className="col-12">
-                                <button type="button" className="iconButton floatRight" data-toggle="modal" data-target="#exampleModal" aria-label="settings" onClick ={() => playSFX('clickSettings')}>
+                                <button type="button" className="iconButton floatRight" data-toggle="modal" data-target="#settingsModal" aria-label="settings" onClick ={() => playSFX('clickSettings')}>
                                     <i className="fa fa-cog"></i>
                                 </button>                            
                             </div>
                         </div>
 
 
-                        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal fade" id="settingsModal" tabIndex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalLabel">Set duration for phases</h5>
+                                        <h5 className="modal-title" id="settingsModalLabel"><i className="fa fa-cog"></i> Settings</h5>
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick ={() => playSFX('clickSettings')}>
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -126,14 +129,13 @@ const Timer = () =>{
                                     </div>
                                     <div className="modal-footer">
                                         <button type="submit" className='btn btn-light iconButton' onClick={() => resetValues()}>Reset</button>
-                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => playSFX('clickSettings')}>Close</button>
-                                        <button type="submit" className="btn btn-primary" onClick={() => playSFX('clickSettings')}>Save changes</button>
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => playSFX('clickSettings')}><i className="fa fa-times"></i> Close</button>
+                                        <button type="submit" className="btn btn-success" onClick={() => {playSFX('clickSettings'); toast.success("✔ Saved", {autoClose: 1500})}}><i className="fa fa-save"></i> Save</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-
                     <CountingMachine maxTime={maxTime} forceBreak={forceBreak}/>
                 </div>
             </div>
