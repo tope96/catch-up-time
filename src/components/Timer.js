@@ -108,18 +108,18 @@ const Timer = () =>{
                                         <div className="form-group row">
                                             <label htmlFor="forceBreak" className="col-5 col-form-label">Force long break</label>
                                             <div className="col-7">
-                                                <label class="switch">
+                                                <label className="switch">
                                                     <input type="checkbox" name="checkboxForceBreak" id="forceBreak" checked={forceBreak} onChange={e => {setForceBreak(!forceBreak); playSFX('clickSettings')}} />
-                                                    <span class="slider round"></span>
+                                                    <span className="slider round"></span>
                                                 </label>
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label htmlFor="sound" className="col-5 col-form-label">Sound</label>
                                             <div className="col-7">
-                                                <label class="switch">
+                                                <label className="switch">
                                                     <input type="checkbox" name="checkboxSound" id="sound" checked={sound} onChange={e => {toggleSound(); setSound(getSound); playSFX('clickSettings'); }}  />
-                                                    <span class="slider round"></span>
+                                                    <span className="slider round"></span>
                                                 </label>
                                             </div>
                                         </div>
