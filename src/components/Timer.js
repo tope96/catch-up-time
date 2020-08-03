@@ -70,7 +70,7 @@ const Timer = () =>{
                                     </div>
                                     <div className="modal-body">
                                         <div className="form-group row">
-                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Work time</label>
+                                            <label htmlFor="workSecs" className="col-sm-5 col-form-label">Work time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
                                                     <input type="number" className="form-control" name="inputSecs" id="workSecs" value={workTime} onChange={e => {setWorkTime(e.target.value); setWorkMinutes(secondsToMinutes(e.target.value))}} />
@@ -82,7 +82,7 @@ const Timer = () =>{
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Short break time</label>
+                                            <label htmlFor="breakSecs" className="col-sm-5 col-form-label">Short break time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
                                                     <input type="number" className="form-control" name="inputSecs" id="breakSecs" value={breakTime} onChange={e => {setBreakTime(e.target.value); setBreakMinutes(secondsToMinutes(e.target.value))}} />
@@ -94,7 +94,7 @@ const Timer = () =>{
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Long break time</label>
+                                            <label htmlFor="longBreakSecs" className="col-sm-5 col-form-label">Long break time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
                                                     <input type="number" className="form-control" name="inputSecs" id="longBreakSecs" value={longBreakTime} onChange={e => {setLongBreakTime(e.target.value); setlongBreakMinutes(secondsToMinutes(e.target.value))}} />
@@ -106,19 +106,21 @@ const Timer = () =>{
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Force long break</label>
-                                            <div className="col-sm-7">
-                                                <div className="input-group ">
-                                                    <input type="checkbox" className="form-control" name="inputForceBreak" id="forceBreak" checked={forceBreak} onChange={e => {setForceBreak(!forceBreak); playSFX('clickSettings')}} />
-                                                </div>
+                                            <label htmlFor="forceBreak" className="col-5 col-form-label">Force long break</label>
+                                            <div className="col-7">
+                                                <label class="switch">
+                                                    <input type="checkbox" name="checkboxForceBreak" id="forceBreak" checked={forceBreak} onChange={e => {setForceBreak(!forceBreak); playSFX('clickSettings')}} />
+                                                    <span class="slider round"></span>
+                                                </label>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Sound</label>
-                                            <div className="col-sm-7">
-                                                <div className="input-group ">
-                                                    <input type="checkbox" className="form-control" name="inputForceBreak" id="forceBreak" checked={sound} onChange={e => {toggleSound(); setSound(getSound); playSFX('clickSettings'); }} />
-                                                </div>
+                                            <label htmlFor="sound" className="col-5 col-form-label">Sound</label>
+                                            <div className="col-7">
+                                                <label class="switch">
+                                                    <input type="checkbox" name="checkboxSound" id="sound" checked={sound} onChange={e => {toggleSound(); setSound(getSound); playSFX('clickSettings'); }}  />
+                                                    <span class="slider round"></span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>

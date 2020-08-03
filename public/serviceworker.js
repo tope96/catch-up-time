@@ -1,5 +1,5 @@
 const CACHE_NAME = "pomodoro";
-const urlsToCache = ['index.html', 'offline.html', '/dist/build/static/js/bundle.min.js'];
+const urlsToCache = ['./index.html', '/dist/build/static/js/bundle.min.js'];
 
 const self = this;
 
