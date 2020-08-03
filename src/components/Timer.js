@@ -1,6 +1,8 @@
 import React, { useState} from 'react';
 import CountingMachine from './CoutingMachine';
 import {getSound, toggleSound, playSFX} from './SoundFX';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Timer = () =>{
     const oriWorkTime = 1500;
@@ -47,30 +49,31 @@ const Timer = () =>{
 
     return(
         <div>
+            <ToastContainer />
             <div className="timer"> 
                 <div className="timerWithButtons effect8">
                     <form onSubmit={handleSubmit}>
                         <div className="row">
                             <div className="col-12">
-                                <button type="button" className="iconButton floatRight" data-toggle="modal" data-target="#exampleModal" aria-label="settings" onClick ={() => playSFX('clickSettings')}>
+                                <button type="button" className="iconButton floatRight" data-toggle="modal" data-target="#settingsModal" aria-label="settings" onClick ={() => playSFX('clickSettings')}>
                                     <i className="fa fa-cog"></i>
                                 </button>                            
                             </div>
                         </div>
 
 
-                        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal fade" id="settingsModal" tabIndex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalLabel">Set duration for phases</h5>
+                                        <h5 className="modal-title" id="settingsModalLabel"><i className="fa fa-cog"></i> Settings</h5>
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick ={() => playSFX('clickSettings')}>
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div className="modal-body">
                                         <div className="form-group row">
-                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Work time</label>
+                                            <label htmlFor="workSecs" className="col-sm-5 col-form-label">Work time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
                                                     <input type="number" className="form-control" name="inputSecs" id="workSecs" value={workTime} onChange={e => {setWorkTime(e.target.value); setWorkMinutes(secondsToMinutes(e.target.value))}} />
@@ -82,7 +85,7 @@ const Timer = () =>{
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Short break time</label>
+                                            <label htmlFor="breakSecs" className="col-sm-5 col-form-label">Short break time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
                                                     <input type="number" className="form-control" name="inputSecs" id="breakSecs" value={breakTime} onChange={e => {setBreakTime(e.target.value); setBreakMinutes(secondsToMinutes(e.target.value))}} />
@@ -94,7 +97,7 @@ const Timer = () =>{
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Long break time</label>
+                                            <label htmlFor="longBreakSecs" className="col-sm-5 col-form-label">Long break time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
                                                     <input type="number" className="form-control" name="inputSecs" id="longBreakSecs" value={longBreakTime} onChange={e => {setLongBreakTime(e.target.value); setlongBreakMinutes(secondsToMinutes(e.target.value))}} />
@@ -106,32 +109,33 @@ const Timer = () =>{
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Force long break</label>
-                                            <div className="col-sm-7">
-                                                <div className="input-group ">
-                                                    <input type="checkbox" className="form-control" name="inputForceBreak" id="forceBreak" checked={forceBreak} onChange={e => {setForceBreak(!forceBreak); playSFX('clickSettings')}} />
-                                                </div>
+                                            <label htmlFor="forceBreak" className="col-5 col-form-label">Force long break</label>
+                                            <div className="col-7">
+                                                <label className="switch">
+                                                    <input type="checkbox" name="checkboxForceBreak" id="forceBreak" checked={forceBreak} onChange={e => {setForceBreak(!forceBreak); playSFX('clickSettings')}} />
+                                                    <span className="slider round"></span>
+                                                </label>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="inputPassword" className="col-sm-5 col-form-label">Sound</label>
-                                            <div className="col-sm-7">
-                                                <div className="input-group ">
-                                                    <input type="checkbox" className="form-control" name="inputForceBreak" id="forceBreak" checked={sound} onChange={e => {toggleSound(); setSound(getSound); playSFX('clickSettings'); }} />
-                                                </div>
+                                            <label htmlFor="sound" className="col-5 col-form-label">Sound</label>
+                                            <div className="col-7">
+                                                <label className="switch">
+                                                    <input type="checkbox" name="checkboxSound" id="sound" checked={sound} onChange={e => {toggleSound(); setSound(getSound); playSFX('clickSettings'); }}  />
+                                                    <span className="slider round"></span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="modal-footer">
                                         <button type="submit" className='btn btn-light iconButton' onClick={() => resetValues()}>Reset</button>
-                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => playSFX('clickSettings')}>Close</button>
-                                        <button type="submit" className="btn btn-primary" onClick={() => playSFX('clickSettings')}>Save changes</button>
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => playSFX('clickSettings')}><i className="fa fa-times"></i> Close</button>
+                                        <button type="submit" className="btn btn-success" onClick={() => {playSFX('clickSettings'); toast.success("✔ Saved", {autoClose: 1500})}}><i className="fa fa-save"></i> Save</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-
                     <CountingMachine maxTime={maxTime} forceBreak={forceBreak}/>
                 </div>
             </div>
