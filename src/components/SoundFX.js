@@ -40,8 +40,6 @@ export function playSFX (name) {
                 console.log('No such sound ' + name);
                 break;
         }
-    } else{
-        console.log('Sound is off');
     }
 }
 export default playSFX;
