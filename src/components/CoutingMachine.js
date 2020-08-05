@@ -27,7 +27,7 @@ const CalculateTimeLeft = (props) => {
             setButtonName("Stop");
         }
 
-        document.title = "Pomodoro Timer"
+        
     },[isActive])
 
     function setTimerTo(seconds){

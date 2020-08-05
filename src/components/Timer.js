@@ -17,8 +17,8 @@ const Timer = () =>{
     const [breakMinutes, setBreakMinutes] = useState(secondsToMinutes(300));
     const [longBreakMinutes, setlongBreakMinutes] = useState(secondsToMinutes(900));
     const [maxTime, setMaxTime] = useState({work: workTime, break: breakTime, longBreak: longBreakTime});
-    const [forceBreak, setForceBreak] = useState(eval(localStorage.getItem('forceBreak') || true));
-    const [sound, setSound] = useState(eval(localStorage.getItem('sound') || true));
+    const [forceBreak, setForceBreak] = useState(localStorage.getItem('forceBreak')===undefined ? true : localStorage.getItem('forceBreak'));
+    const [sound, setSound] = useState(localStorage.getItem('sound')===undefined ? true : localStorage.getItem('sound'));
 
     const handleSubmit = (event) => {
         event.preventDefault();
