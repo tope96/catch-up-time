@@ -10,9 +10,9 @@ const Timer = () =>{
     const oriBreakTime = 300;
     const oriLongBreakTime = 900;
     const oriForceBreak = true;
-    const [workTime, setWorkTime] = useState(1500);
-    const [breakTime, setBreakTime] = useState(300);
-    const [longBreakTime, setLongBreakTime] = useState(900);
+    const [workTime, setWorkTime] = useState(JSON.parse(localStorage.getItem('workTime')) || 1500);
+    const [breakTime, setBreakTime] = useState(JSON.parse(localStorage.getItem('breakTime')) || 300);
+    const [longBreakTime, setLongBreakTime] = useState(JSON.parse(localStorage.getItem('longBreakTime')) || 900);
     const [workMinutes, setWorkMinutes] = useState(secondsToMinutes(1500));
     const [breakMinutes, setBreakMinutes] = useState(secondsToMinutes(300));
     const [longBreakMinutes, setlongBreakMinutes] = useState(secondsToMinutes(900));
@@ -24,6 +24,9 @@ const Timer = () =>{
     const handleSubmit = (event) => {
         event.preventDefault();
         localStorage.setItem('forceBreak', forceBreak);
+        localStorage.setItem('workTime', workTime);
+        localStorage.setItem('breakTime', breakTime);
+        localStorage.setItem('longBreakTime', longBreakTime);
         localStorage.setItem('sound', sound);
         localStorage.setItem('autoplay', autoPlay);
         setMaxTime({work: workTime, break: breakTime, longBreak: longBreakTime});
