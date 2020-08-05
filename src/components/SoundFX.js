@@ -3,15 +3,7 @@ import clickStart from '../sfx/clickStart.mp3';
 import clickReset from '../sfx/clickReset.mp3';
 import clickSettings from '../sfx/clickSettings.mp3';
 
-const dingSFX = new Audio(ding);
-const clickStartSFX = new Audio(clickStart);
-const clickResetSFX = new Audio(clickReset);
-const clickSettingsSFX = new Audio(clickSettings);
 var sound = true;
-
-// export function toggleSound () {
-//    sound = (!sound);
-// }
 
 export function toggleSound(state){
     sound = state;
@@ -22,24 +14,26 @@ export function getSound() {
 }
 
 export function playSFX (name) {
-    if (sound ===true){
+    if (sound === true){
+        var snd = new Audio();
         switch(name){
-            case 'ding': 
-                dingSFX.play();
+            case 'ding':
+                snd.src = ding;
                 break;
-            case 'clickStart': 
-                clickStartSFX.play();
+            case 'clickStart':
+                snd.src = clickStart;
                 break;
-            case 'clickReset': 
-                clickResetSFX.play();
+            case 'clickReset':
+                snd.src = clickReset;
                 break;
-            case 'clickSettings': 
-                clickSettingsSFX.play();
+            case 'clickSettings':
+                snd.src = clickSettings;
                 break;
             default:
                 console.log('No such sound ' + name);
                 break;
         }
+        snd.play();
     }
 }
 export default playSFX;
