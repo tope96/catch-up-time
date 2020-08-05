@@ -1,10 +1,11 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import CountingMachine from './CoutingMachine';
-import {getSound, toggleSound, playSFX} from './SoundFX';
+import { toggleSound, playSFX } from './SoundFX';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Timer = () =>{
+
     const oriWorkTime = 1500;
     const oriBreakTime = 300;
     const oriLongBreakTime = 900;
@@ -16,11 +17,13 @@ const Timer = () =>{
     const [breakMinutes, setBreakMinutes] = useState(secondsToMinutes(300));
     const [longBreakMinutes, setlongBreakMinutes] = useState(secondsToMinutes(900));
     const [maxTime, setMaxTime] = useState({work: workTime, break: breakTime, longBreak: longBreakTime});
-    const [forceBreak, setForceBreak] = useState(true);
-    const [sound, setSound] = useState(true);
+    const [forceBreak, setForceBreak] = useState(eval(localStorage.getItem('forceBreak') || true));
+    const [sound, setSound] = useState(eval(localStorage.getItem('sound') || true));
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        localStorage.setItem('sound', sound);
+        localStorage.setItem('forceBreak', forceBreak);
         setMaxTime({work: workTime, break: breakTime, longBreak: longBreakTime});
     }
 
@@ -46,6 +49,10 @@ const Timer = () =>{
         setLongBreakTime(oriLongBreakTime);
         setForceBreak(oriForceBreak);
     }
+
+    useEffect(() => {
+        toggleSound(sound);
+    }, [sound])
 
     return(
         <div>
@@ -121,7 +128,7 @@ const Timer = () =>{
                                             <label htmlFor="sound" className="col-5 col-form-label">Sound</label>
                                             <div className="col-7">
                                                 <label className="switch">
-                                                    <input type="checkbox" name="checkboxSound" id="sound" checked={sound} onChange={e => {toggleSound(); setSound(getSound); playSFX('clickSettings'); }}  />
+                                                    <input type="checkbox" name="checkboxSound" id="sound" checked={sound} onChange={e => {setSound(e.target.checked); playSFX('clickSettings'); }}  />
                                                     <span className="slider round"></span>
                                                 </label>
                                             </div>

@@ -9,8 +9,12 @@ const clickResetSFX = new Audio(clickReset);
 const clickSettingsSFX = new Audio(clickSettings);
 var sound = true;
 
-export function toggleSound () {
-   sound = (!sound);
+// export function toggleSound () {
+//    sound = (!sound);
+// }
+
+export function toggleSound(state){
+    sound = state;
 }
 
 export function getSound() {
