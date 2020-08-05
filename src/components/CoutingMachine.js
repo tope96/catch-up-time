@@ -16,19 +16,16 @@ const CalculateTimeLeft = (props) => {
     const [currentMode, setCurrentMode] = useState("work");
     const [workIter, setWorkIter] = useState(1);
 
-    const toggleActive = useCallback(()=>{
-        setIsActive(!isActive);
-
-        if(isActive){
-            setActionButtonState("btn btn-success actionButton");
-            setButtonName("Start");
-        }else{
+    const setActiveState = useCallback((activeState)=>{
+        setIsActive(activeState)
+        if(activeState){
             setActionButtonState("btn btn-danger actionButton")
             setButtonName("Stop");
+        }else{
+            setActionButtonState("btn btn-success actionButton");
+            setButtonName("Start");
         }
-
-        
-    },[isActive])
+    },[])
 
     function setTimerTo(seconds){
         let seconds1 = parseInt(seconds);
@@ -51,27 +48,18 @@ const CalculateTimeLeft = (props) => {
         setActiveButton({work: buttonActive, breake:buttonInactive, longBreak: buttonInactive })
         setCurrentMode("work");
         setTimerTo(secondsSetByUser.work);
-        setIsActive(false);
-        setActionButtonState("btn btn-success actionButton");
-        setButtonName("Start");
     },[secondsSetByUser.work, buttonActive, buttonInactive]);
 
     const breakTime = useCallback(() => {
         setActiveButton({work: buttonInactive, breake:buttonActive, longBreak: buttonInactive })
         setCurrentMode("break");
         setTimerTo(secondsSetByUser.break);
-        setIsActive(false);
-        setActionButtonState("btn btn-success actionButton");
-        setButtonName("Start");
     },[secondsSetByUser.break, buttonActive, buttonInactive]);
 
     const longBreakTime = useCallback(() => {
         setActiveButton({work: buttonInactive, breake:buttonInactive, longBreak: buttonActive })
         setCurrentMode("longBreak");
         setTimerTo(secondsSetByUser.longBreak);
-        setIsActive(false);
-        setActionButtonState("btn btn-success actionButton");
-        setButtonName("Start");
     }, [secondsSetByUser.longBreak, buttonActive, buttonInactive]);
 
     const toggleReset = useCallback(() => {
@@ -101,7 +89,7 @@ const CalculateTimeLeft = (props) => {
                 }, 1000);
                 return () => clearInterval(interval);
             }else{
-                toggleActive();
+                setActiveState(props.autoPlay);
  
                 playSFX('ding');
                 var title = ['Time is up!', currentMode==='work' ? 'Take a break!' : 'Do some work!'].join(' ');
@@ -119,7 +107,6 @@ const CalculateTimeLeft = (props) => {
                         setWorkIter(1);
                     } else {
                         setWorkIter(workIter+1);
-                        console.log(workIter);
                         breakTime();
                     }
                 } else if (currentMode === "break" || currentMode === "longBreak"){
@@ -127,7 +114,7 @@ const CalculateTimeLeft = (props) => {
                 }
             }
         }
-    }, [seconds, isActive, timeText, breakTime, currentMode, toggleActive, workTime, longBreakTime, workIter, props.forceBreak]);
+    }, [seconds, isActive, timeText, breakTime, currentMode, setActiveState, workTime, longBreakTime, workIter, props.forceBreak, props.autoPlay]);
 
 
     return(
@@ -138,7 +125,7 @@ const CalculateTimeLeft = (props) => {
                 <button className={activeButton.longBreak} onClick={() => {playSFX('clickSettings'); longBreakTime()}}>Long break</button>
             </div>
             <div className="timerText">{timeText}</div><br />
-            <button className={actionButtonState} onClick={() => {playSFX('clickStart'); toggleActive()}}>{buttonName}</button>
+            <button className={actionButtonState} onClick={() => {playSFX('clickStart'); setActiveState(!isActive)}}>{buttonName}</button>
             <button className="btn btn-warning actionButton" onClick={() => {playSFX('clickReset'); toggleReset()}}>Reset timer</button>
         </div>
     );
