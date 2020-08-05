@@ -81,7 +81,7 @@ const CalculateTimeLeft = (props) => {
 
     useEffect(() => {
         let interval = null;
-         
+         console.log(JSON.parse(localStorage.getItem('times')))
         if (isActive) {
             if (seconds !== -1) {
                 interval = setInterval(() => {
