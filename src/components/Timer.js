@@ -17,16 +17,18 @@ const Timer = () =>{
     const [breakMinutes, setBreakMinutes] = useState(secondsToMinutes(300));
     const [longBreakMinutes, setlongBreakMinutes] = useState(secondsToMinutes(900));
     const [maxTime, setMaxTime] = useState({work: workTime, break: breakTime, longBreak: longBreakTime});
-    const [forceBreak, setForceBreak] = useState(eval(localStorage.getItem('forceBreak') || true));
-    const [sound, setSound] = useState(eval(localStorage.getItem('sound') || true));
+    const [forceBreak, setForceBreak] = useState(localStorage.getItem('forceBreak')==='false' ? false: true );
+    const [sound, setSound] = useState(localStorage.getItem('sound')==='false' ? false : true);
+    const [autoPlay, setAutoplay] = useState(localStorage.getItem('autoplay')==='true' ? true : false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        localStorage.setItem('sound', sound);
         localStorage.setItem('forceBreak', forceBreak);
         localStorage.setItem('workTime', workTime);
         localStorage.setItem('breakTime', breakTime);
         localStorage.setItem('longBreakTime', longBreakTime);
+        localStorage.setItem('sound', sound);
+        localStorage.setItem('autoplay', autoPlay);
         setMaxTime({work: workTime, break: breakTime, longBreak: longBreakTime});
     }
 
@@ -37,7 +39,7 @@ const Timer = () =>{
         if(minutes.toString().length === 1){
             minutes = "0" + minutes;
         }
-
+        
         if(secondsMinutes.toString().length === 1){
             secondsMinutes = "0" + secondsMinutes;
         }
@@ -136,6 +138,15 @@ const Timer = () =>{
                                                 </label>
                                             </div>
                                         </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="sound" className="col-5 col-form-label">Autoplay</label>
+                                            <div className="col-7">
+                                                <label className="switch">
+                                                    <input type="checkbox" name="checkboxSound" id="sound" checked={autoPlay} onChange={e => {setAutoplay(e.target.checked); playSFX('clickSettings'); }}  />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="modal-footer">
                                         <button type="submit" className='btn btn-light iconButton' onClick={() => resetValues()}>Reset</button>
@@ -146,7 +157,7 @@ const Timer = () =>{
                             </div>
                         </div>
                     </form>
-                    <CountingMachine maxTime={maxTime} forceBreak={forceBreak}/>
+                    <CountingMachine maxTime={maxTime} forceBreak={forceBreak} autoPlay={autoPlay}/>
                 </div>
             </div>
         </div>
