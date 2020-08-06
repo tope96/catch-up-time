@@ -5,18 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Timer = () =>{
-
-    const oriWorkTime = 1500;
-    const oriBreakTime = 300;
-    const oriLongBreakTime = 900;
+    const oriTimes = {work: 1500, break: 300, longBreak: 900}
     const oriForceBreak = true;
-    const [workTime, setWorkTime] = useState(JSON.parse(localStorage.getItem('workTime')) || 1500);
-    const [breakTime, setBreakTime] = useState(JSON.parse(localStorage.getItem('breakTime')) || 300);
-    const [longBreakTime, setLongBreakTime] = useState(JSON.parse(localStorage.getItem('longBreakTime')) || 900);
-    const [workMinutes, setWorkMinutes] = useState(secondsToMinutes(1500));
-    const [breakMinutes, setBreakMinutes] = useState(secondsToMinutes(300));
-    const [longBreakMinutes, setlongBreakMinutes] = useState(secondsToMinutes(900));
-    const [maxTime, setMaxTime] = useState({work: workTime, break: breakTime, longBreak: longBreakTime});
+    const [maxTime, setMaxTime] = useState(JSON.parse(localStorage.getItem('times')) || oriTimes);
     const [forceBreak, setForceBreak] = useState(localStorage.getItem('forceBreak')==='false' ? false: true );
     const [sound, setSound] = useState(localStorage.getItem('sound')==='false' ? false : true);
     const [autoPlay, setAutoplay] = useState(localStorage.getItem('autoplay')==='true' ? true : false);
@@ -24,12 +15,9 @@ const Timer = () =>{
     const handleSubmit = (event) => {
         event.preventDefault();
         localStorage.setItem('forceBreak', forceBreak);
-        localStorage.setItem('workTime', workTime);
-        localStorage.setItem('breakTime', breakTime);
-        localStorage.setItem('longBreakTime', longBreakTime);
+        localStorage.setItem('times', JSON.stringify(maxTime));
         localStorage.setItem('sound', sound);
         localStorage.setItem('autoplay', autoPlay);
-        setMaxTime({work: workTime, break: breakTime, longBreak: longBreakTime});
     }
 
     function secondsToMinutes(seconds){
@@ -49,9 +37,7 @@ const Timer = () =>{
 
     function resetValues(){
         playSFX('clickReset');
-        setWorkTime(oriWorkTime);
-        setBreakTime(oriBreakTime);
-        setLongBreakTime(oriLongBreakTime);
+        setMaxTime(oriTimes);
         setForceBreak(oriForceBreak);
     }
 
@@ -88,10 +74,17 @@ const Timer = () =>{
                                             <label htmlFor="workSecs" className="col-sm-5 col-form-label">Work time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
-                                                    <input type="number" className="form-control" name="inputSecs" id="workSecs" value={workTime} onChange={e => {setWorkTime(e.target.value); setWorkMinutes(secondsToMinutes(e.target.value))}} />
+                                                    <input 
+                                                        type="number"
+                                                        className="form-control"
+                                                        name="inputSecs"
+                                                        id="workSecs"
+                                                        value={maxTime.work}
+                                                        onChange={e => setMaxTime({...maxTime, work: parseInt(e.target.value)})}
+                                                    />
                                                     <div className="input-group-append">
                                                         <span className="input-group-text">seconds</span>
-                                                        <span className="input-group-text">{workMinutes}</span>
+                                                        <span className="input-group-text">{secondsToMinutes(maxTime.work)}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -100,10 +93,17 @@ const Timer = () =>{
                                             <label htmlFor="breakSecs" className="col-sm-5 col-form-label">Short break time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
-                                                    <input type="number" className="form-control" name="inputSecs" id="breakSecs" value={breakTime} onChange={e => {setBreakTime(e.target.value); setBreakMinutes(secondsToMinutes(e.target.value))}} />
+                                                    <input
+                                                        type="number"
+                                                        className="form-control"
+                                                        name="inputSecs"
+                                                        id="breakSecs"
+                                                        value={maxTime.break}
+                                                        onChange={e => setMaxTime({...maxTime, break: parseInt(e.target.value)})} 
+                                                    />
                                                     <div className="input-group-append">
                                                         <span className="input-group-text">seconds</span>
-                                                        <span className="input-group-text">{breakMinutes}</span>
+                                                        <span className="input-group-text">{secondsToMinutes(maxTime.break)}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -112,10 +112,17 @@ const Timer = () =>{
                                             <label htmlFor="longBreakSecs" className="col-sm-5 col-form-label">Long break time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
-                                                    <input type="number" className="form-control" name="inputSecs" id="longBreakSecs" value={longBreakTime} onChange={e => {setLongBreakTime(e.target.value); setlongBreakMinutes(secondsToMinutes(e.target.value))}} />
+                                                    <input
+                                                        type="number"
+                                                        className="form-control"
+                                                        name="inputSecs"
+                                                        id="longBreakSecs"
+                                                        value={maxTime.longBreak}
+                                                        onChange={e => setMaxTime({...maxTime, longBreak: parseInt(e.target.value)})} 
+                                                    />
                                                     <div className="input-group-append">
                                                         <span className="input-group-text">seconds</span>
-                                                        <span className="input-group-text">{longBreakMinutes}</span>
+                                                        <span className="input-group-text">{secondsToMinutes(maxTime.longBreak)}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -124,7 +131,16 @@ const Timer = () =>{
                                             <label htmlFor="forceBreak" className="col-5 col-form-label">Force long break</label>
                                             <div className="col-7">
                                                 <label className="switch">
-                                                    <input type="checkbox" name="checkboxForceBreak" id="forceBreak" checked={forceBreak} onChange={e => {setForceBreak(!forceBreak); playSFX('clickSettings')}} />
+                                                    <input
+                                                        type="checkbox"
+                                                        name="checkboxForceBreak"
+                                                        id="forceBreak"
+                                                        checked={forceBreak}
+                                                        onChange={e => {
+                                                            setForceBreak(!forceBreak);
+                                                            playSFX('clickSettings');
+                                                            }}
+                                                    />
                                                     <span className="slider round"></span>
                                                 </label>
                                             </div>
@@ -133,16 +149,34 @@ const Timer = () =>{
                                             <label htmlFor="sound" className="col-5 col-form-label">Sound</label>
                                             <div className="col-7">
                                                 <label className="switch">
-                                                    <input type="checkbox" name="checkboxSound" id="sound" checked={sound} onChange={e => {setSound(e.target.checked); playSFX('clickSettings'); }}  />
+                                                    <input
+                                                        type="checkbox"
+                                                        name="checkboxSound"
+                                                        id="sound"
+                                                        checked={sound}
+                                                        onChange={e => {
+                                                            setSound(e.target.checked);
+                                                            playSFX('clickSettings');
+                                                            }}
+                                                    />
                                                     <span className="slider round"></span>
                                                 </label>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="sound" className="col-5 col-form-label">Autoplay</label>
+                                            <label htmlFor="autoPlay" className="col-5 col-form-label">Autoplay</label>
                                             <div className="col-7">
                                                 <label className="switch">
-                                                    <input type="checkbox" name="checkboxSound" id="sound" checked={autoPlay} onChange={e => {setAutoplay(e.target.checked); playSFX('clickSettings'); }}  />
+                                                    <input
+                                                        type="checkbox"
+                                                        name="checkboxSound"
+                                                        id="autoPlay"
+                                                        checked={autoPlay}
+                                                        onChange={e => {
+                                                            setAutoplay(e.target.checked);
+                                                            playSFX('clickSettings');
+                                                            }}
+                                                    />
                                                     <span className="slider round"></span>
                                                 </label>
                                             </div>
