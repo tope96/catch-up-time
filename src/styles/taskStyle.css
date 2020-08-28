@@ -1,0 +1,24 @@
+.removeIcon{
+    float: right;
+    cursor: pointer;
+    color: rgb(226, 43, 43);
+    font-size: 1.3rem;
+}
+
+.doneIcon{
+    cursor: pointer;
+    color: green;
+    font-size: 1.3rem;
+    margin-right: 2rem;
+}
+
+.notDoneIcon{
+    cursor: pointer;
+    color: rgb(161, 161, 161);
+    font-size: 1.3rem;
+    margin-right: 2rem;
+}
+
+.doneItem{
+    background-color: rgb(226, 226, 226);
+}

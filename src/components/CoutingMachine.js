@@ -18,10 +18,10 @@ const CalculateTimeLeft = (props) => {
 
     const setActiveState = useCallback((activeState)=>{
         setIsActive(activeState)
-        if(activeState){
+        if (activeState) {
             setActionButtonState("btn btn-danger actionButton")
             setButtonName("Stop");
-        }else{
+        } else {
             setActionButtonState("btn btn-success actionButton");
             setButtonName("Start");
         }
@@ -43,7 +43,7 @@ const CalculateTimeLeft = (props) => {
         setSeconds(seconds1);
         setTimeText(minutes + ":" + secondsMinutes);
     }
-    
+
     const workTime = useCallback(() => {
         setActiveButton({work: buttonActive, breake:buttonInactive, longBreak: buttonInactive })
         setCurrentMode("work");
@@ -87,9 +87,9 @@ const CalculateTimeLeft = (props) => {
                     setTimerTo(seconds-1)
                 }, 1000);
                 return () => clearInterval(interval);
-            }else{
+            } else {
                 setActiveState(props.autoPlay);
- 
+
                 playSFX('ding');
                 var title = ['Time is up!', currentMode==='work' ? 'Take a break!' : 'Do some work!'].join(' ');
                 addNotification({
@@ -114,7 +114,6 @@ const CalculateTimeLeft = (props) => {
             }
         }
     }, [seconds, isActive, timeText, breakTime, currentMode, setActiveState, workTime, longBreakTime, workIter, props.forceBreak, props.autoPlay]);
-
 
     return(
         <div>
