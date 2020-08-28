@@ -4,25 +4,29 @@ import Task from './Task';
 
 const Todo = () => {
     const [collapseIcon, setCollapseIcon] = useState(true);
-    const [todoList, setTodoList] = useState([]);
+    const [todoList, setTodoList] = useState(JSON.parse(localStorage.getItem('tasks')) || []);
     const [todoInput, setTodoInput] = useState("");
 
     const handleSubmit = (event) => {
+        let newTodoList = [...todoList, {title: event.target.todoInputName.value, completed: false}];
         event.preventDefault();
-        setTodoList([...todoList, {title: event.target.todoInputName.value, completed: false}]);
         setTodoInput("");
+        setTodoList(newTodoList);
+        localStorage.setItem('tasks', JSON.stringify(newTodoList));
     }
 
     const completeTodo = (index) => {
         const newTodoList = [...todoList];
         todoList[index].completed = !todoList[index].completed;
         setTodoList(newTodoList);
+        localStorage.setItem('tasks', JSON.stringify(newTodoList));
     }
 
     const removeTodo = (index) => {
         const newTodoList = [...todoList];
         newTodoList.splice(index, 1);
         setTodoList(newTodoList);
+        localStorage.setItem('tasks', JSON.stringify(newTodoList));
     }
 
     return(
