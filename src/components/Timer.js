@@ -1,46 +1,45 @@
 import React, { useState, useEffect} from 'react';
 import CountingMachine from './CoutingMachine';
+import Todo from './Todo.js';
 import { toggleSound, playSFX } from './SoundFX';
 import { ToastContainer, toast } from 'react-toastify';
+import ReactTooltip from 'react-tooltip';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Timer = () =>{
-
-    const oriWorkTime = 1500;
-    const oriBreakTime = 300;
-    const oriLongBreakTime = 900;
+    const toolTips = {
+        workTime: "Enter the duration of the work phase",
+        breakTime: "Enter the duration of the short break phase",
+        longBreakTime: "Enter the duration of the long break phase",
+        forceLongBreak: "After 4 iterations of work, do you want a long break to happen automatically?",
+        sound: "Should sound be turned on in the app?",
+        autoplay: "At the end of each phase, should the countdown of the next phase start automatically?",
+        reset: "Reset all settings to initial"
+    };
+    const oriTimes = {work: 1500, break: 300, longBreak: 900};
     const oriForceBreak = true;
-    const [workTime, setWorkTime] = useState(JSON.parse(localStorage.getItem('workTime')) || 1500);
-    const [breakTime, setBreakTime] = useState(JSON.parse(localStorage.getItem('breakTime')) || 300);
-    const [longBreakTime, setLongBreakTime] = useState(JSON.parse(localStorage.getItem('longBreakTime')) || 900);
-    const [workMinutes, setWorkMinutes] = useState(secondsToMinutes(1500));
-    const [breakMinutes, setBreakMinutes] = useState(secondsToMinutes(300));
-    const [longBreakMinutes, setlongBreakMinutes] = useState(secondsToMinutes(900));
-    const [maxTime, setMaxTime] = useState({work: workTime, break: breakTime, longBreak: longBreakTime});
-    const [forceBreak, setForceBreak] = useState(localStorage.getItem('forceBreak')==='false' ? false: true );
-    const [sound, setSound] = useState(localStorage.getItem('sound')==='false' ? false : true);
-    const [autoPlay, setAutoplay] = useState(localStorage.getItem('autoplay')==='true' ? true : false);
+    const [maxTime, setMaxTime] = useState(JSON.parse(localStorage.getItem('times')) || oriTimes);
+    const [forceBreak, setForceBreak] = useState(localStorage.getItem('forceBreak') === 'false' ? false: true );
+    const [sound, setSound] = useState(localStorage.getItem('sound') === 'false' ? false : true);
+    const [autoPlay, setAutoplay] = useState(localStorage.getItem('autoplay') === 'true' ? true : false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         localStorage.setItem('forceBreak', forceBreak);
-        localStorage.setItem('workTime', workTime);
-        localStorage.setItem('breakTime', breakTime);
-        localStorage.setItem('longBreakTime', longBreakTime);
+        localStorage.setItem('times', JSON.stringify(maxTime));
         localStorage.setItem('sound', sound);
         localStorage.setItem('autoplay', autoPlay);
-        setMaxTime({work: workTime, break: breakTime, longBreak: longBreakTime});
     }
 
     function secondsToMinutes(seconds){
         let minutes = Math.floor(seconds / 60);
         let secondsMinutes = seconds - minutes * 60;
 
-        if(minutes.toString().length === 1){
+        if (minutes.toString().length === 1) {
             minutes = "0" + minutes;
         }
-        
-        if(secondsMinutes.toString().length === 1){
+
+        if (secondsMinutes.toString().length === 1) {
             secondsMinutes = "0" + secondsMinutes;
         }
 
@@ -49,9 +48,7 @@ const Timer = () =>{
 
     function resetValues(){
         playSFX('clickReset');
-        setWorkTime(oriWorkTime);
-        setBreakTime(oriBreakTime);
-        setLongBreakTime(oriLongBreakTime);
+        setMaxTime(oriTimes);
         setForceBreak(oriForceBreak);
     }
 
@@ -62,19 +59,19 @@ const Timer = () =>{
     return(
         <div>
             <ToastContainer />
-            <div className="timer"> 
+            <div className="timer">
                 <div className="timerWithButtons effect8">
                     <form onSubmit={handleSubmit}>
                         <div className="row">
                             <div className="col-12">
                                 <button type="button" className="iconButton floatRight" data-toggle="modal" data-target="#settingsModal" aria-label="settings" onClick ={() => playSFX('clickSettings')}>
                                     <i className="fa fa-cog"></i>
-                                </button>                            
+                                </button>
                             </div>
                         </div>
 
-
                         <div className="modal fade" id="settingsModal" tabIndex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+                            <ReactTooltip />
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -85,71 +82,119 @@ const Timer = () =>{
                                     </div>
                                     <div className="modal-body">
                                         <div className="form-group row">
-                                            <label htmlFor="workSecs" className="col-sm-5 col-form-label">Work time</label>
+                                            <label htmlFor="workSecs" className="col-sm-5 col-form-label" data-tip={toolTips.workTime}>Work time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
-                                                    <input type="number" className="form-control" name="inputSecs" id="workSecs" value={workTime} onChange={e => {setWorkTime(e.target.value); setWorkMinutes(secondsToMinutes(e.target.value))}} />
+                                                    <input
+                                                        type="number"
+                                                        className="form-control"
+                                                        name="inputSecs"
+                                                        id="workSecs"
+                                                        value={maxTime.work === 0 ? "" : maxTime.work}
+                                                        onChange={e =>setMaxTime({...maxTime, work: +(e.target.value)})}
+                                                    />
                                                     <div className="input-group-append">
                                                         <span className="input-group-text">seconds</span>
-                                                        <span className="input-group-text">{workMinutes}</span>
+                                                        <span className="input-group-text">{secondsToMinutes(maxTime.work)}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="breakSecs" className="col-sm-5 col-form-label">Short break time</label>
+                                            <label htmlFor="breakSecs" className="col-sm-5 col-form-label" data-tip={toolTips.breakTime}>Short break time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
-                                                    <input type="number" className="form-control" name="inputSecs" id="breakSecs" value={breakTime} onChange={e => {setBreakTime(e.target.value); setBreakMinutes(secondsToMinutes(e.target.value))}} />
+                                                    <input
+                                                        type="number"
+                                                        className="form-control"
+                                                        name="inputSecs"
+                                                        id="breakSecs"
+                                                        value={maxTime.break === 0 ? "" : maxTime.break}
+                                                        onChange={e => setMaxTime({...maxTime, break: +(e.target.value)})}
+                                                    />
                                                     <div className="input-group-append">
                                                         <span className="input-group-text">seconds</span>
-                                                        <span className="input-group-text">{breakMinutes}</span>
+                                                        <span className="input-group-text">{secondsToMinutes(maxTime.break)}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="longBreakSecs" className="col-sm-5 col-form-label">Long break time</label>
+                                            <label htmlFor="longBreakSecs" className="col-sm-5 col-form-label" data-tip={toolTips.longBreakTime}>Long break time</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
-                                                    <input type="number" className="form-control" name="inputSecs" id="longBreakSecs" value={longBreakTime} onChange={e => {setLongBreakTime(e.target.value); setlongBreakMinutes(secondsToMinutes(e.target.value))}} />
+                                                    <input
+                                                        type="number"
+                                                        className="form-control"
+                                                        name="inputSecs"
+                                                        id="longBreakSecs"
+                                                        value={maxTime.longBreak === 0 ? "" : maxTime.longBreak}
+                                                        onChange={e => setMaxTime({...maxTime, longBreak: +(e.target.value)})}
+                                                    />
                                                     <div className="input-group-append">
                                                         <span className="input-group-text">seconds</span>
-                                                        <span className="input-group-text">{longBreakMinutes}</span>
+                                                        <span className="input-group-text">{secondsToMinutes(maxTime.longBreak)}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="forceBreak" className="col-5 col-form-label">Force long break</label>
+                                            <label htmlFor="forceBreak" className="col-5 col-form-label" data-tip={toolTips.forceLongBreak}>Force long break</label>
                                             <div className="col-7">
                                                 <label className="switch">
-                                                    <input type="checkbox" name="checkboxForceBreak" id="forceBreak" checked={forceBreak} onChange={e => {setForceBreak(!forceBreak); playSFX('clickSettings')}} />
+                                                    <input
+                                                        type="checkbox"
+                                                        name="checkboxForceBreak"
+                                                        id="forceBreak"
+                                                        checked={forceBreak}
+                                                        onChange={e => {
+                                                            setForceBreak(!forceBreak);
+                                                            playSFX('clickSettings');
+                                                            }}
+                                                    />
                                                     <span className="slider round"></span>
                                                 </label>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="sound" className="col-5 col-form-label">Sound</label>
+                                            <label htmlFor="sound" className="col-5 col-form-label" data-tip={toolTips.sound}>Sound</label>
                                             <div className="col-7">
                                                 <label className="switch">
-                                                    <input type="checkbox" name="checkboxSound" id="sound" checked={sound} onChange={e => {setSound(e.target.checked); playSFX('clickSettings'); }}  />
+                                                    <input
+                                                        type="checkbox"
+                                                        name="checkboxSound"
+                                                        id="sound"
+                                                        checked={sound}
+                                                        onChange={e => {
+                                                            setSound(e.target.checked);
+                                                            playSFX('clickSettings');
+                                                            }}
+                                                    />
                                                     <span className="slider round"></span>
                                                 </label>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="sound" className="col-5 col-form-label">Autoplay</label>
+                                            <label htmlFor="autoPlay" className="col-5 col-form-label" data-tip={toolTips.autoplay}>Autoplay</label>
                                             <div className="col-7">
                                                 <label className="switch">
-                                                    <input type="checkbox" name="checkboxSound" id="sound" checked={autoPlay} onChange={e => {setAutoplay(e.target.checked); playSFX('clickSettings'); }}  />
+                                                    <input
+                                                        type="checkbox"
+                                                        name="checkboxSound"
+                                                        id="autoPlay"
+                                                        checked={autoPlay}
+                                                        onChange={e => {
+                                                            setAutoplay(e.target.checked);
+                                                            playSFX('clickSettings');
+                                                            }}
+                                                    />
                                                     <span className="slider round"></span>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="modal-footer">
-                                        <button type="submit" className='btn btn-light iconButton' onClick={() => resetValues()}>Reset</button>
+                                        <button type="submit" className='btn btn-light iconButton' data-tip={toolTips.reset} onClick={() => resetValues()}>Reset</button>
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => playSFX('clickSettings')}><i className="fa fa-times"></i> Close</button>
                                         <button type="submit" className="btn btn-success" onClick={() => {playSFX('clickSettings'); toast.success("✔ Saved", {autoClose: 1500})}}><i className="fa fa-save"></i> Save</button>
                                     </div>
@@ -160,6 +205,7 @@ const Timer = () =>{
                     <CountingMachine maxTime={maxTime} forceBreak={forceBreak} autoPlay={autoPlay}/>
                 </div>
             </div>
+        <Todo />
         </div>
     )
 }
