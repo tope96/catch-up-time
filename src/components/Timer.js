@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import CountingMachine from './CoutingMachine';
+import Todo from './Todo.js';
 import { toggleSound, playSFX } from './SoundFX';
 import { ToastContainer, toast } from 'react-toastify';
 import ReactTooltip from 'react-tooltip';
@@ -204,6 +205,7 @@ const Timer = () =>{
                     <CountingMachine maxTime={maxTime} forceBreak={forceBreak} autoPlay={autoPlay}/>
                 </div>
             </div>
+        <Todo />
         </div>
     )
 }
