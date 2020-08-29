@@ -20,7 +20,7 @@ npm start
 
 Using the timer is very simple - just press start and the timer will start to count down. You will be informed that the time has run out with a sound and a push notification (you must first allow notifications in your browser).
 
-Besides the basic functionality, you can also use the built-in to-do list. Here you can add tasks, mark them as done, and delete old ones.
+Besides the basic functionality, you can also use the built-in to-do list. Here you can add tasks, mark them as done, edit them and delete old ones.
 
 **You can install the application as a PWA app on any system that supports it (e.g. Android from Chrome browser, Windows from Chrome, Edge)**
 
