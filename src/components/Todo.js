@@ -8,7 +8,7 @@ const Todo = () => {
     const [todoInput, setTodoInput] = useState("");
 
     const handleSubmit = (event) => {
-        let newTodoList = [...todoList, {title: event.target.todoInputName.value, completed: false}];
+        let newTodoList = [...todoList, {title: event.target.todoInputName.value, describtion: "", completed: false}];
         event.preventDefault();
         setTodoInput("");
         setTodoList(newTodoList);
@@ -29,11 +29,18 @@ const Todo = () => {
         localStorage.setItem('tasks', JSON.stringify(newTodoList));
     }
 
+    const editTodo = (index, title, describtion) => {
+        const newTodoList = [...todoList];
+        todoList[index].title = title;
+        todoList[index].describtion = describtion;
+        setTodoList(newTodoList);
+        localStorage.setItem('tasks', JSON.stringify(newTodoList));
+    }
+
     return(
         <div className="collapseButton">
             <p>
                 <button className="roundButton" type="button" onClick={() => setCollapseIcon(!collapseIcon)} data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    <i className="fa fa-tasks"> </i>
                     <i className={collapseIcon ? 'fa fa-chevron-down': 'fa fa-chevron-up'}></i>
                 </button>
             </p>
@@ -54,6 +61,8 @@ const Todo = () => {
                                             name='todoInputName'
                                             value={todoInput}
                                             onChange={e => setTodoInput(e.target.value)}
+                                            placeholder='Task name'
+                                            required
                                             />
                                         </div>
                                         <div className="col-sm-2">
@@ -73,6 +82,7 @@ const Todo = () => {
                                             index={index}
                                             complete={completeTodo}
                                             remove={removeTodo}
+                                            edit={editTodo}
                                         />
                                     </div>
                                 ))}

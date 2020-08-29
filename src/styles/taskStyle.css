@@ -12,6 +12,15 @@
     margin-right: 2rem;
 }
 
+.editIcon{
+    float: right;
+    cursor: pointer;
+    color: rgb(219, 219, 219);
+    margin-right: 2rem;
+    margin-top: 0.1rem;
+    font-size: 1.3rem;
+}
+
 .notDoneIcon{
     cursor: pointer;
     color: rgb(161, 161, 161);
@@ -21,4 +30,10 @@
 
 .doneItem{
     background-color: rgb(226, 226, 226);
+}
+
+.describtion{
+    margin-left: 0.5rem;
+    color: grey;
+    font-size: 12px;
 }
