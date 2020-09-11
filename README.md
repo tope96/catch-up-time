@@ -31,7 +31,8 @@ With options, you can customize things like:
 - the duration of each phase, which you enter in seconds, so you can set exactly the time you want (as you type, the program automatically converts this time into minutes, so you can see the result immediately),
 - force long break - if you check this option, then after 4 iterations of work, instead of turning on a short pause, a long pause will start,
 - sound - defines whether audio should run in the application,
-- autoplay - defines whether the countdown for the next phase should start automatically
+- autoplay - defines whether the countdown for the next phase should start automatically,
+- language - you can change the language of the application. The currently available languages are: **English**, **German** and **Polish**
 
 After saving, all options are saved in the browser's memory so that you do not have to enter them every time.
 
