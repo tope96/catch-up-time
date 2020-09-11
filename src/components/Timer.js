@@ -5,16 +5,19 @@ import { toggleSound, playSFX } from './SoundFX';
 import { ToastContainer, toast } from 'react-toastify';
 import ReactTooltip from 'react-tooltip';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from './LanguageSelector';
 
 const Timer = () =>{
+    const [t, i18n] = useTranslation();
     const toolTips = {
-        workTime: "Enter the duration of the work phase",
-        breakTime: "Enter the duration of the short break phase",
-        longBreakTime: "Enter the duration of the long break phase",
-        forceLongBreak: "After 4 iterations of work, do you want a long break to happen automatically?",
-        sound: "Should sound be turned on in the app?",
-        autoplay: "At the end of each phase, should the countdown of the next phase start automatically?",
-        reset: "Reset all settings to initial"
+        workTime: i18n.t("settings.tooltips.workTime"),
+        breakTime: i18n.t("settings.tooltips.breakTime"),
+        longBreakTime: i18n.t("settings.tooltips.longBreakTime"),
+        forceLongBreak: i18n.t("settings.tooltips.forceLongBreak"),
+        sound: i18n.t("settings.tooltips.sound"),
+        autoplay: i18n.t("settings.tooltips.autoplay"),
+        reset: i18n.t("settings.tooltips.reset")
     };
     const oriTimes = {work: 1500, break: 300, longBreak: 900};
     const oriForceBreak = true;
@@ -75,14 +78,14 @@ const Timer = () =>{
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="settingsModalLabel"><i className="fa fa-cog"></i> Settings</h5>
+                                        <h5 className="modal-title" id="settingsModalLabel"><i className="fa fa-cog"></i> {i18n.t("settings.title")}</h5>
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick ={() => playSFX('clickSettings')}>
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div className="modal-body">
                                         <div className="form-group row">
-                                            <label htmlFor="workSecs" className="col-sm-5 col-form-label" data-tip={toolTips.workTime}>Work time</label>
+                                            <label htmlFor="workSecs" className="col-sm-5 col-form-label" data-tip={toolTips.workTime}>{i18n.t("settings.workTime")}</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
                                                     <input
@@ -94,14 +97,14 @@ const Timer = () =>{
                                                         onChange={e =>setMaxTime({...maxTime, work: +(e.target.value)})}
                                                     />
                                                     <div className="input-group-append">
-                                                        <span className="input-group-text">seconds</span>
+                                                        <span className="input-group-text">{i18n.t("settings.seconds")}</span>
                                                         <span className="input-group-text">{secondsToMinutes(maxTime.work)}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="breakSecs" className="col-sm-5 col-form-label" data-tip={toolTips.breakTime}>Short break time</label>
+                                            <label htmlFor="breakSecs" className="col-sm-5 col-form-label" data-tip={toolTips.breakTime}>{i18n.t("settings.shBreak")}</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
                                                     <input
@@ -113,14 +116,14 @@ const Timer = () =>{
                                                         onChange={e => setMaxTime({...maxTime, break: +(e.target.value)})}
                                                     />
                                                     <div className="input-group-append">
-                                                        <span className="input-group-text">seconds</span>
+                                                        <span className="input-group-text">{i18n.t("settings.seconds")}</span>
                                                         <span className="input-group-text">{secondsToMinutes(maxTime.break)}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="longBreakSecs" className="col-sm-5 col-form-label" data-tip={toolTips.longBreakTime}>Long break time</label>
+                                            <label htmlFor="longBreakSecs" className="col-sm-5 col-form-label" data-tip={toolTips.longBreakTime}>{i18n.t("settings.lnBreak")}</label>
                                             <div className="col-sm-7">
                                                 <div className="input-group ">
                                                     <input
@@ -132,14 +135,14 @@ const Timer = () =>{
                                                         onChange={e => setMaxTime({...maxTime, longBreak: +(e.target.value)})}
                                                     />
                                                     <div className="input-group-append">
-                                                        <span className="input-group-text">seconds</span>
+                                                        <span className="input-group-text">{i18n.t("settings.seconds")}</span>
                                                         <span className="input-group-text">{secondsToMinutes(maxTime.longBreak)}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="forceBreak" className="col-5 col-form-label" data-tip={toolTips.forceLongBreak}>Force long break</label>
+                                            <label htmlFor="forceBreak" className="col-5 col-form-label" data-tip={toolTips.forceLongBreak}>{i18n.t("settings.forceBreak")}</label>
                                             <div className="col-7">
                                                 <label className="switch">
                                                     <input
@@ -157,7 +160,7 @@ const Timer = () =>{
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="sound" className="col-5 col-form-label" data-tip={toolTips.sound}>Sound</label>
+                                            <label htmlFor="sound" className="col-5 col-form-label" data-tip={toolTips.sound}>{i18n.t("settings.sound")}</label>
                                             <div className="col-7">
                                                 <label className="switch">
                                                     <input
@@ -175,7 +178,7 @@ const Timer = () =>{
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="autoPlay" className="col-5 col-form-label" data-tip={toolTips.autoplay}>Autoplay</label>
+                                            <label htmlFor="autoPlay" className="col-5 col-form-label" data-tip={toolTips.autoplay}>{i18n.t("settings.autoplay")}</label>
                                             <div className="col-7">
                                                 <label className="switch">
                                                     <input
@@ -192,11 +195,19 @@ const Timer = () =>{
                                                 </label>
                                             </div>
                                         </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="autoPlay" className="col-5 col-form-label" data-tip={toolTips.autoplay}>{i18n.t("settings.language")}</label>
+                                            <div className="col-7">
+                                                <label className="languageSelector">
+                                                    <LanguageSelector />
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="modal-footer">
-                                        <button type="submit" className='btn btn-light iconButton' data-tip={toolTips.reset} onClick={() => resetValues()}>Reset</button>
-                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => playSFX('clickSettings')}><i className="fa fa-times"></i> Close</button>
-                                        <button type="submit" className="btn btn-success" onClick={() => {playSFX('clickSettings'); toast.success("✔ Saved", {autoClose: 1500})}}><i className="fa fa-save"></i> Save</button>
+                                        <button type="submit" className='btn btn-light iconButton' data-tip={toolTips.reset} onClick={() => resetValues()}>{i18n.t("settings.reset")}</button>
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => playSFX('clickSettings')}><i className="fa fa-times"></i> {i18n.t("close")}</button>
+                                        <button type="submit" className="btn btn-success" onClick={() => {playSFX('clickSettings'); toast.success("✔" + i18n.t("saved"), {autoClose: 1500})}}><i className="fa fa-save"></i> {i18n.t("save")}</button>
                                     </div>
                                 </div>
                             </div>

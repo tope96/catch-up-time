@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import '../styles/todoStyle.css'
 import Task from './Task';
+import { useTranslation } from 'react-i18next';
 
 const Todo = () => {
     const [collapseIcon, setCollapseIcon] = useState(true);
     const [todoList, setTodoList] = useState(JSON.parse(localStorage.getItem('tasks')) || []);
     const [todoInput, setTodoInput] = useState("");
+    const [t, i18n] = useTranslation();
 
     const handleSubmit = (event) => {
         let newTodoList = [...todoList, {title: event.target.todoInputName.value, describtion: "", completed: false}];
@@ -48,11 +50,11 @@ const Todo = () => {
                 <div className="card card-body container-fluid todoContainer">
                     <div className="row">
                         <div className="col-lg-12">
-                            <h3>To-do list</h3>
+                            <h3>{i18n.t("toDo.title")}</h3>
                             <hr></hr>
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group row">
-                                    <label htmlFor="todoInput" className="col-sm-4 col-form-label">Enter the task:</label>
+                                    <label htmlFor="todoInput" className="col-sm-4 col-form-label">{i18n.t("toDo.inputTaskLabel")}:</label>
                                         <div className="col-sm-6">
                                         <input
                                             type='text'
@@ -61,7 +63,7 @@ const Todo = () => {
                                             name='todoInputName'
                                             value={todoInput}
                                             onChange={e => setTodoInput(e.target.value)}
-                                            placeholder='Task name'
+                                            placeholder={i18n.t("toDo.inputTaskHint")}
                                             required
                                             />
                                         </div>
