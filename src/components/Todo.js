@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import '../styles/todoStyle.css'
 import Task from './Task';
+import { useTranslation } from 'react-i18next';
 
 const Todo = () => {
     const [collapseIcon, setCollapseIcon] = useState(true);
     const [todoList, setTodoList] = useState(JSON.parse(localStorage.getItem('tasks')) || []);
     const [todoInput, setTodoInput] = useState("");
+    const [t, i18n] = useTranslation();
 
     const handleSubmit = (event) => {
-        let newTodoList = [...todoList, {title: event.target.todoInputName.value, completed: false}];
+        let newTodoList = [...todoList, {title: event.target.todoInputName.value, describtion: "", completed: false}];
         event.preventDefault();
         setTodoInput("");
         setTodoList(newTodoList);
@@ -29,11 +31,18 @@ const Todo = () => {
         localStorage.setItem('tasks', JSON.stringify(newTodoList));
     }
 
+    const editTodo = (index, title, describtion) => {
+        const newTodoList = [...todoList];
+        todoList[index].title = title;
+        todoList[index].describtion = describtion;
+        setTodoList(newTodoList);
+        localStorage.setItem('tasks', JSON.stringify(newTodoList));
+    }
+
     return(
         <div className="collapseButton">
             <p>
                 <button className="roundButton" type="button" onClick={() => setCollapseIcon(!collapseIcon)} data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    <i className="fa fa-tasks"> </i>
                     <i className={collapseIcon ? 'fa fa-chevron-down': 'fa fa-chevron-up'}></i>
                 </button>
             </p>
@@ -41,11 +50,11 @@ const Todo = () => {
                 <div className="card card-body container-fluid todoContainer">
                     <div className="row">
                         <div className="col-lg-12">
-                            <h3>To-do list</h3>
+                            <h3>{i18n.t("toDo.title")}</h3>
                             <hr></hr>
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group row">
-                                    <label htmlFor="todoInput" className="col-sm-4 col-form-label">Enter the task:</label>
+                                    <label htmlFor="todoInput" className="col-sm-4 col-form-label">{i18n.t("toDo.inputTaskLabel")}:</label>
                                         <div className="col-sm-6">
                                         <input
                                             type='text'
@@ -54,6 +63,8 @@ const Todo = () => {
                                             name='todoInputName'
                                             value={todoInput}
                                             onChange={e => setTodoInput(e.target.value)}
+                                            placeholder={i18n.t("toDo.inputTaskHint")}
+                                            required
                                             />
                                         </div>
                                         <div className="col-sm-2">
@@ -73,6 +84,7 @@ const Todo = () => {
                                             index={index}
                                             complete={completeTodo}
                                             remove={removeTodo}
+                                            edit={editTodo}
                                         />
                                     </div>
                                 ))}

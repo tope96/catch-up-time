@@ -12,6 +12,11 @@ body{
     color: black
 }
 
+.iconButton:focus{
+    border-color: transparent;
+    outline: none;
+}
+
 .floatRight{
     float: right;
 }
@@ -27,4 +32,5 @@ body{
     .title{
       font-size: 30px;
     }
+
   }

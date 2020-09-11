@@ -1,0 +1,44 @@
+{
+    "states":{
+        "work": "Arbeit",
+        "shBreak": "Kurze Pause",
+        "lnBreak": "Lange Pause"
+    },
+    "start": "Start",
+    "stop": "Stop",
+    "reset": "Timer zurücksetzen",
+    "settings":{
+        "title": "Einstellungen",
+        "workTime": "Arbeitszeit",
+        "shBreak": "Short break time",
+        "lnBreak": "Kurze Pausenzeit",
+        "forceBreak": "Lange Pause erzwingen",
+        "sound": "Klang",
+        "autoplay": "Automatisches Abspielen",
+        "reset": "Zurücksetzen",
+        "language": "Sprache",
+        "seconds": "Sekunden",
+        "tooltips":{
+            "workTime": "Geben Sie die Dauer der Arbeitsphase ein",
+            "breakTime": "Geben Sie die Dauer der Kurzurlaubsphase ein",
+            "longBreakTime": "Geben Sie die Dauer der langen Pausenphase ein",
+            "forceLongBreak": "Möchten Sie nach 4 Iterationen automatisch eine lange Pause einlegen?",
+            "sound": "Sollte der Ton in der App eingeschaltet sein?",
+            "autoplay": "Sollte der Countdown der nächsten Phase am Ende jeder Phase automatisch beginnen?",
+            "reset": "Setzen Sie alle Einstellungen auf initial zurück"
+        }
+    },
+    "close": "Schließen",
+    "save": "Sparen",
+    "saved": "Erfolgreich gespeichert!",
+    "toDo":{
+        "title": "Aufgabenliste",
+        "inputTaskLabel": "Geben Sie die Aufgabe ein",
+        "inputTaskHint": "Aufgabennname"
+    },
+    "notification":{
+        "breakTime": "Machen Sie eine Pause!",
+        "workTime": "Arbeite etwas!",
+        "timesUp": "Zeit ist um!"
+    }
+}
