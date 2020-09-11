@@ -1,0 +1,44 @@
+{
+    "states":{
+        "work": "Praca",
+        "shBreak": "Krótka przerwa",
+        "lnBreak": "Długa przerwa"
+    },
+    "start": "Start",
+    "stop": "Stop",
+    "reset": "Licznik od nowa",
+    "settings":{
+        "title": "Ustawienia",
+        "workTime": "Długość pracy",
+        "shBreak": "Długość krótkiej przerwy",
+        "lnBreak": "Długość długiej przerwy",
+        "forceBreak": "Wymuś długą przerwę",
+        "sound": "Dźwięk",
+        "autoplay": "Automatyczne wznawianie",
+        "reset": "Przywróć domyślne",
+        "language": "Język",
+        "seconds": "sekund",
+        "tooltips":{
+            "workTime": "Wpisz długość czasu pracy",
+            "breakTime": "Wpisz długość czasu krótkiej przerwy",
+            "longBreakTime": "Wpisz długość czasu długiej przerwy",
+            "forceLongBreak": "Czy po 4 iteracjach pracy automatycznie włączyć długą przerwę?",
+            "sound": "Czy dźwięk aplikacji ma być włączony?",
+            "autoplay": "Czy po zakończeniu fazy, odliczanie kolejnej ma się włączyć automatycznie?",
+            "reset": "Ustaw wszystkie wartości na domyślne"
+        }
+    },
+    "close": "Anuluj",
+    "save": "Zapisz",
+    "saved": "Zapisane",
+    "toDo":{
+        "title": "Lista zadań",
+        "inputTaskLabel": "Wpisz zadanie",
+        "inputTaskHint": "Nazwa zadania"
+    },
+    "notification":{
+        "breakTime": "Czas na przerwę!",
+        "workTime": "Czas na pracę!",
+        "timesUp": "Koniec czasu!"
+    }
+}

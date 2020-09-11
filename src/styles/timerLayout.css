@@ -120,6 +120,10 @@
     border-radius: 50%;
   }
 
+  .languageSelector{
+    width: 100%;
+  }
+
   @media screen and (max-width: 320px) {
     .actionButton{
       margin: 0.1rem;

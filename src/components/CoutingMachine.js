@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/timerLayout.css';
 import addNotification from 'react-push-notification';
 import {playSFX} from './SoundFX.js';
+import { useTranslation } from 'react-i18next';
 
 const CalculateTimeLeft = (props) => {
     const buttonActive = "btn btn-danger actionButton";
@@ -15,17 +16,18 @@ const CalculateTimeLeft = (props) => {
     const [activeButton, setActiveButton] = useState({work: buttonActive, breake:buttonInactive, longBreak: buttonInactive });
     const [currentMode, setCurrentMode] = useState("work");
     const [workIter, setWorkIter] = useState(1);
+    const [t, i18n] = useTranslation();
 
     const setActiveState = useCallback((activeState)=>{
         setIsActive(activeState)
         if (activeState) {
             setActionButtonState("btn btn-danger actionButton")
-            setButtonName("Stop");
+            setButtonName(i18n.t("stop"));
         } else {
             setActionButtonState("btn btn-success actionButton");
-            setButtonName("Start");
+            setButtonName(i18n.t("start"));
         }
-    },[])
+    },[i18n])
 
     function setTimerTo(seconds){
         let seconds1 = parseInt(seconds);
@@ -91,7 +93,7 @@ const CalculateTimeLeft = (props) => {
                 setActiveState(props.autoPlay);
 
                 playSFX('ding');
-                var title = ['Time is up!', currentMode==='work' ? 'Take a break!' : 'Do some work!'].join(' ');
+                var title = [i18n.t("notification.timesUp"), currentMode==='work' ? i18n.t("notification.breakTime") : i18n.t("notification.workTime")].join(' ');
                 addNotification({
                     title: title,
                     subtitle: 'Pomodoro',
@@ -113,18 +115,18 @@ const CalculateTimeLeft = (props) => {
                 }
             }
         }
-    }, [seconds, isActive, timeText, breakTime, currentMode, setActiveState, workTime, longBreakTime, workIter, props.forceBreak, props.autoPlay]);
+    }, [seconds, isActive, timeText, breakTime, currentMode, setActiveState, workTime, longBreakTime, workIter, props.forceBreak, props.autoPlay, i18n]);
 
     return(
         <div>
             <div className="allButtonsTimeOptions">
-                <button className={activeButton.work} onClick={() => {playSFX('clickSettings'); workTime()}}>Work</button>
-                <button className={activeButton.breake} onClick={() => {playSFX('clickSettings'); breakTime()}}>Short break</button>
-                <button className={activeButton.longBreak} onClick={() => {playSFX('clickSettings'); longBreakTime()}}>Long break</button>
+                <button className={activeButton.work} onClick={() => {playSFX('clickSettings'); workTime()}}>{i18n.t("states.work")}</button>
+                <button className={activeButton.breake} onClick={() => {playSFX('clickSettings'); breakTime()}}>{i18n.t("states.shBreak")}</button>
+                <button className={activeButton.longBreak} onClick={() => {playSFX('clickSettings'); longBreakTime()}}>{i18n.t("states.lnBreak")}</button>
             </div>
             <div className="timerText">{timeText}</div><br />
             <button className={actionButtonState} onClick={() => {playSFX('clickStart'); setActiveState(!isActive)}}>{buttonName}</button>
-            <button className="btn btn-warning actionButton" onClick={() => {playSFX('clickReset'); toggleReset()}}>Reset timer</button>
+            <button className="btn btn-warning actionButton" onClick={() => {playSFX('clickReset'); toggleReset()}}>{i18n.t("reset")}</button>
         </div>
     );
 };

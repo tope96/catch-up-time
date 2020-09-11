@@ -1,0 +1,44 @@
+{
+    "states":{
+        "work": "Work",
+        "shBreak": "Short break",
+        "lnBreak": "Long break"
+    },
+    "start": "Start",
+    "stop": "Stop",
+    "reset": "Reset Timer",
+    "settings":{
+        "title": "Settings",
+        "workTime": "Work time",
+        "shBreak": "Short break time",
+        "lnBreak": "Long break time",
+        "forceBreak": "Force long break",
+        "sound": "Sound",
+        "autoplay": "Autoplay",
+        "reset": "Reset",
+        "language": "Language",
+        "seconds": "seconds",
+        "tooltips":{
+            "workTime": "Enter the duration of the work phase",
+            "breakTime": "Enter the duration of the short break phase",
+            "longBreakTime": "Enter the duration of the long break phase",
+            "forceLongBreak": "After 4 iterations of work, do you want a long break to happen automatically?",
+            "sound": "Should sound be turned on in the app?",
+            "autoplay": "At the end of each phase, should the countdown of the next phase start automatically?",
+            "reset": "Reset all settings to initial"
+        }
+    },
+    "close": "Close",
+    "save": "Save",
+    "saved": "Saved",
+    "toDo":{
+        "title": "To-do list",
+        "inputTaskLabel": "Enter the task",
+        "inputTaskHint": "Task name"
+    },
+    "notification":{
+        "breakTime": "Take a break!",
+        "workTime": "Do some work!",
+        "timesUp": "Time is up!"
+    }
+}
