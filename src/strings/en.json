@@ -34,7 +34,10 @@
     "toDo":{
         "title": "To-do list",
         "inputTaskLabel": "Enter the task",
-        "inputTaskHint": "Task name"
+        "inputTaskHint": "Task name",
+        "taskEdit": "Task edit",
+        "nameEdit": "New name",
+        "descEdit": "New description"
     },
     "notification":{
         "breakTime": "Take a break!",

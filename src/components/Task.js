@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import '../styles/taskStyle.css';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const Task = ({task, index, complete, remove, edit}) => {
-
+    const [t, i18n] = useTranslation();
     const [titleInput, setTitleInput] = useState(task.title);
     const [descriptionInput, setDescriptionInput] = useState(task.description);
 
@@ -45,7 +46,7 @@ const Task = ({task, index, complete, remove, edit}) => {
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="EditTask">Task edit</h5>
+                                <h5 className="modal-title" id="EditTask">{i18n.t("toDo.taskEdit")}</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -53,7 +54,7 @@ const Task = ({task, index, complete, remove, edit}) => {
                             <form onSubmit={handleSubmit}>
                             <div className="modal-body">
                                 <div className="form-group row">
-                                    <label htmlFor="title" className="col-sm-4 col-form-label">New name:</label>
+                                    <label htmlFor="title" className="col-sm-4 col-form-label">{i18n.t("toDo.nameEdit")}:</label>
                                     <div className="col-sm-8">
                                         <input
                                             type="text"
@@ -67,7 +68,7 @@ const Task = ({task, index, complete, remove, edit}) => {
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label htmlFor="description" className="col-sm-4 col-form-label">New description:</label>
+                                    <label htmlFor="description" className="col-sm-4 col-form-label">{i18n.t("toDo.descEdit")}:</label>
                                     <div className="col-sm-8">
                                         <input
                                             type="text"
@@ -81,8 +82,8 @@ const Task = ({task, index, complete, remove, edit}) => {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" className="btn btn-success" onClick={() => toast.success("✔ Saved", {autoClose: 1500})}><i className="fa fa-save"></i> Save</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">{i18n.t("close")}</button>
+                                <button type="submit" className="btn btn-success" onClick={() => toast.success("✔ " + i18n.t("saved"), {autoClose: 1500})}><i className="fa fa-save"></i> {i18n.t("save")}</button>
                             </div>
                             </form>
                         </div>

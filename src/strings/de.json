@@ -34,7 +34,10 @@
     "toDo":{
         "title": "Aufgabenliste",
         "inputTaskLabel": "Geben Sie die Aufgabe ein",
-        "inputTaskHint": "Aufgabennname"
+        "inputTaskHint": "Aufgabennname",
+        "taskEdit": "Aufgabe bearbeiten",
+        "nameEdit": "Neuer Name",
+        "descEdit": "Neue Beschreibung"
     },
     "notification":{
         "breakTime": "Machen Sie eine Pause!",

@@ -34,7 +34,10 @@
     "toDo":{
         "title": "Lista zadań",
         "inputTaskLabel": "Wpisz zadanie",
-        "inputTaskHint": "Nazwa zadania"
+        "inputTaskHint": "Nazwa zadania",
+        "taskEdit": "Edycja zadania",
+        "nameEdit": "Nowa nazwa",
+        "descEdit": "Nowy opis"
     },
     "notification":{
         "breakTime": "Czas na przerwę!",
