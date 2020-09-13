@@ -10,7 +10,7 @@ const Todo = () => {
     const [t, i18n] = useTranslation();
 
     const handleSubmit = (event) => {
-        let newTodoList = [...todoList, {title: event.target.todoInputName.value, describtion: "", completed: false}];
+        let newTodoList = [...todoList, {title: event.target.todoInputName.value, description: "", completed: false}];
         event.preventDefault();
         setTodoInput("");
         setTodoList(newTodoList);
@@ -31,10 +31,10 @@ const Todo = () => {
         localStorage.setItem('tasks', JSON.stringify(newTodoList));
     }
 
-    const editTodo = (index, title, describtion) => {
+    const editTodo = (index, title, description) => {
         const newTodoList = [...todoList];
         todoList[index].title = title;
-        todoList[index].describtion = describtion;
+        todoList[index].description = description;
         setTodoList(newTodoList);
         localStorage.setItem('tasks', JSON.stringify(newTodoList));
     }

@@ -34,11 +34,15 @@
     "toDo":{
         "title": "Aufgabenliste",
         "inputTaskLabel": "Geben Sie die Aufgabe ein",
-        "inputTaskHint": "Aufgabennname"
+        "inputTaskHint": "Aufgabennname",
+        "taskEdit": "Aufgabe bearbeiten",
+        "nameEdit": "Neuer Name",
+        "descEdit": "Neue Beschreibung"
     },
     "notification":{
         "breakTime": "Machen Sie eine Pause!",
         "workTime": "Arbeite etwas!",
         "timesUp": "Zeit ist um!"
-    }
+    },
+    "legal": "Catch-up Time is not affiliated with Francesco Cirillo. Pomodoro Technique™ and Pomodoro™ are registered trademarks of Francesco Cirillo. All logos and marks contained herein are the property of their respective owners."
 }

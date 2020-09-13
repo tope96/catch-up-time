@@ -32,8 +32,32 @@
     background-color: rgb(226, 226, 226);
 }
 
-.describtion{
-    margin-left: 0.5rem;
+.description{
     color: grey;
     font-size: 12px;
 }
+
+.align{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.icons{
+    text-align: center;
+}
+
+@media screen and (max-width: 575px) {
+    .removeIcon{
+        float: none;
+        margin-right: 2rem;
+    }
+
+    .editIcon{
+        float: none;
+    }
+
+    .taskText{
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+  }
