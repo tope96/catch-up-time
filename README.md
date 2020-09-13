@@ -1,6 +1,6 @@
-# Pomodoro Timer
+# Catch-up Time
 
-Pomodoro Timer is a web application that supports work using [Pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique).
+Catch-up time is a web application that supports work using [Pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique).
 
 ## Installation
 
