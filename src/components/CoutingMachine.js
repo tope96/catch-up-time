@@ -72,7 +72,6 @@ const CalculateTimeLeft = (props) => {
         }else if(currentMode === "longBreak"){
             longBreakTime();
         }
-        document.title = "Pomodoro Timer"
     },[currentMode, workTime, breakTime, longBreakTime])
 
     useEffect(() => {

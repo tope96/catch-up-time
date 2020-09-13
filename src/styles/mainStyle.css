@@ -28,6 +28,12 @@ body{
     font-size: 80px;
 }
 
+.legal{
+    text-align: center;
+    margin-top: 5rem;
+    color: white;
+}
+
 @media screen and (max-width: 524px) {
     .title{
       font-size: 30px;

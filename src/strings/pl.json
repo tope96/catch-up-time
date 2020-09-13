@@ -40,5 +40,6 @@
         "breakTime": "Czas na przerwę!",
         "workTime": "Czas na pracę!",
         "timesUp": "Koniec czasu!"
-    }
+    },
+    "legal": "Catch-up Time is not affiliated with Francesco Cirillo. Pomodoro Technique™ and Pomodoro™ are registered trademarks of Francesco Cirillo. All logos and marks contained herein are the property of their respective owners."
 }
