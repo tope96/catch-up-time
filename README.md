@@ -41,7 +41,7 @@ If you've experimented with the options and don't remember what the default valu
 ## Demo
 
 This project uses [Buddy](https://buddy.works/) for CD pipeline to deploy master branch on Google's cloud storage and is available here:\
-https://pomodoro-timer.guba.waw.pl/
+https://pomodoro.guba.net.pl/
 
 ## Contributors
 
